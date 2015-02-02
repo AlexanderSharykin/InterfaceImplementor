@@ -1,4 +1,7 @@
-﻿namespace WrapperGenerator.Test
+﻿using System;
+using System.Windows.Forms;
+
+namespace WrapperGenerator.Test
 {
     public class TestClass //<V>:ITestInterface2<V> where V:Form
     {

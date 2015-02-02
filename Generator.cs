@@ -157,6 +157,10 @@ namespace WrapperGenerator
             var s = sBuilder.ToString();
             int idx = signatures.IndexOf(s);            
             bool shoudBeExplicit = idx >= 0;
+
+            // add attributes
+            AttributeCode(method, sb);
+
             // NOTE: if there are 2 methods with the same signature in the interface, at least one of them must be implemented as explicit
             if (shoudBeExplicit)
             {
@@ -214,7 +218,7 @@ namespace WrapperGenerator
         /// <param name="shouldNormalize">Use position index in names of parameters</param>
         /// <returns></returns>
         private void MethodSignatureCode(MethodInfo method, ParameterInfo[] parameters, Type[] gArgs, StringBuilder sb, bool shouldNormalize = false)
-        {
+        {            
             sb.Append(method.Name);                        
             if (method.IsGenericMethod)            
                 ListTypeParameters(gArgs, sb, shouldNormalize);            
@@ -346,6 +350,9 @@ namespace WrapperGenerator
 
             int idx = signatures.IndexOf(signature);
             bool shouldBeExplicit = idx >= 0;
+
+            AttributeCode(property, sb);
+
             if (shouldBeExplicit)
             {
                 if (propertyTypes[idx] == property.PropertyType)
@@ -360,7 +367,7 @@ namespace WrapperGenerator
                 signatures.Add(signature);
                 propertyTypes.Add(property.PropertyType);
             }
-
+            
             PropertySignatureCode(property, sb, idxParams);
 
             var propAccessor = new StringBuilder();
@@ -378,7 +385,7 @@ namespace WrapperGenerator
 
             sb.AppendLine("{");
 
-            if (property.CanRead)            
+            if (property.CanRead)
                 // create property getter
                 sb.Append(Tab).Append("get { return ").Append(propAccessor).AppendLine("; }");            
 
@@ -409,6 +416,12 @@ namespace WrapperGenerator
                 signatureBuilder.AppendLine(property.Name);
         }
 
+        private void AttributeCode(MemberInfo member, StringBuilder sb)
+        {            
+            foreach (var a in member.GetCustomAttributesData())            
+                sb.AppendLine(a.ToString());            
+        }
+
         /// <summary>
         /// Generates code for event
         /// </summary>
@@ -418,6 +431,7 @@ namespace WrapperGenerator
         /// <param name="eventTypes"></param>
         private void EventCode(EventInfo ev, StringBuilder sb, IList<string> events, IList<Type> eventTypes)
         {
+            AttributeCode(ev, sb);
             int idx = events.IndexOf(ev.Name);
             bool shoudBeExplicit = idx >= 0;
             if (shoudBeExplicit)
