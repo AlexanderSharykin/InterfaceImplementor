@@ -109,10 +109,9 @@ namespace WrapperGenerator
                 return t.Name;
             }
 
-            var args = t.GetGenericArguments();
-            // NOTE: t.IsGeneric == false when generic parameter is used with ref keyword
+            var args = t.GetGenericArguments();            
             if (args.Length == 0)
-                return t.FullName ?? t.Name; // NOTE: t.FullName is null for array types
+                return (t.FullName ?? t.Name).Replace('+','.'); // NOTE: '+' occures in the names of nested types
 
             // generic type name
             var nameBuilder = new StringBuilder(t.Name.Substring(0, t.Name.IndexOf('`')));
@@ -126,7 +125,7 @@ namespace WrapperGenerator
         }
 
         /// <summary>
-        /// List type parameters in andle brackets
+        /// List type parameters in angle brackets
         /// </summary>
         /// <param name="gArgs">List of type arguments</param>
         /// <param name="builder"></param>

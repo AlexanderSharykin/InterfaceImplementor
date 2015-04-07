@@ -58,6 +58,7 @@
     <Compile Include="Test\ITestInterface1.cs" />
     <Compile Include="Test\ITestInterface2.cs" />
     <Compile Include="Test\DemoAttribute.cs" />
+    <Compile Include="Test\TestType.cs" />
     <Compile Include="Test\TestClass.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
