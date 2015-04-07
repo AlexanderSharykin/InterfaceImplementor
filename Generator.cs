@@ -83,6 +83,9 @@ namespace WrapperGenerator
         /// <returns></returns>
         private static string GetTypeName(Type t, bool shouldNormalize)
         {
+            if (t.IsByRef)
+                t = t.GetElementType();
+
             if (t.FullName == "System.Void")
                 return "void";
             if (t.FullName == "System.Object")
@@ -113,11 +116,11 @@ namespace WrapperGenerator
 
             // generic type name
             var nameBuilder = new StringBuilder(t.Name.Substring(0, t.Name.IndexOf('`')));
-            nameBuilder.Insert(0, t.Namespace + ".");
+            nameBuilder.Insert(0, t.Namespace + Type.Delimiter);
 
             ListTypeParameters(args, nameBuilder, shouldNormalize);
             // the type is an array of generics
-            if (t.Name.EndsWith("[]"))
+            if (t.IsArray)
                 nameBuilder.Append("[]");
             return nameBuilder.ToString();
         }
@@ -290,7 +293,7 @@ namespace WrapperGenerator
                 var p = parameters[i];
                 sb.Append(i == parameters.Length - 1 && p.GetCustomAttributes(typeof (ParamArrayAttribute), false).Length > 0 ? "params ": string.Empty)
                     .Append(p.ParameterType.IsByRef ? (p.IsOut ? Out : Ref) : string.Empty)
-                    .Append(GetTypeName(p.ParameterType, shouldNormalize).Replace("&", "")) // remove pointer in ref and out parameters type
+                    .Append(GetTypeName(p.ParameterType, shouldNormalize))
                     .Append(' ')
                     .Append(shouldNormalize ? "_p" + p.Position : p.Name)
                     .Append(p.IsOptional ? "=" + GetOptionParamValue(p) : "")
