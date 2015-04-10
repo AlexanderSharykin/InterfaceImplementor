@@ -86,20 +86,25 @@ namespace WrapperGenerator
             if (t.IsByRef)
                 t = t.GetElementType();
 
-            if (t.FullName == "System.Void")
-                return "void";
-            if (t.FullName == "System.Object")
-                return "object";
-            if (t.FullName == "System.Int64")
-                return "long";
-            if (t.FullName == "System.Int32")
-                return "int";
-            if (t.FullName == "System.Int16")
-                return "short";
-            if (t.FullName == "System.Boolean")
-                return "bool";
-            if (t.FullName == "System.String")
-                return "string";
+            switch (t.FullName)
+            {
+                case "System.Void": return "void";
+                case "System.Object": return "object";
+                case "System.Int64": return "long";
+                case "System.UInt64": return "ulong";
+                case "System.Int32": return "int";
+                case "System.UInt32": return "uint";
+                case "System.Int16": return "short";
+                case "System.UInt16": return "ushort";
+                case "System.Byte": return "byte";
+                case "System.SByte": return "sbyte";
+                case "System.Double": return "double";
+                case "System.Single": return "float";
+                case "System.Decimal": return "decimal";
+                case "System.Boolean": return "bool";
+                case "System.String": return "string";
+                case "System.Char": return "char";
+            }
 
             if (t.IsGenericParameter)
             {                
@@ -109,9 +114,9 @@ namespace WrapperGenerator
                 return t.Name;
             }
 
-            var args = t.GetGenericArguments();            
-            if (args.Length == 0)
-                return (t.FullName ?? t.Name).Replace('+','.'); // NOTE: '+' occures in the names of nested types
+            var args = t.GetGenericArguments();
+            if (args.Length == 0)            
+                return (t.IsArray ? (GetTypeName(t.GetElementType(), shouldNormalize) +"[]") : t.FullName ?? t.Name).Replace('+', '.'); // NOTE: '+' occures in the names of nested types            
 
             // generic type name
             var nameBuilder = new StringBuilder(t.Name.Substring(0, t.Name.IndexOf('`')));
