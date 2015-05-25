@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using InterfaceImplementor;
 
-namespace WrapperGenerator
+namespace InterfaceImplementor
 {
     static class Program
     {
@@ -13,6 +14,7 @@ namespace WrapperGenerator
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
             Application.Run(new MainForm());
         }
     }

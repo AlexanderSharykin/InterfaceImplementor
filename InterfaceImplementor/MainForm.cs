@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Linq;
 using System.Windows.Forms;
+using TypeCode = InterfaceImplementor.TypeCode;
 
-namespace WrapperGenerator
+namespace InterfaceImplementor
 {
     public partial class MainForm : Form
     {        
@@ -50,7 +51,7 @@ namespace WrapperGenerator
             lstInterfaces.Items.Clear();
 
             foreach (var i in _inf)
-                lstInterfaces.Items.Add(Generator.GetTypeName(i));
+                lstInterfaces.Items.Add(new TypeCode(i).FullName);
 
             if (_inf.Count > 0)
                 lstInterfaces.SelectedIndex = 0;
@@ -62,11 +63,11 @@ namespace WrapperGenerator
             if (idx < 0)
                 return;
             var t = _inf[idx];
-            txtCode.Text = new Generator().ImplementInterface(t);
+            txtCode.Text = new CodeBuilder().ImplementInterface(t);
         }
 
         private void CloseClick(object sender, EventArgs e)
-        {            
+        {
             Close();
         }    
     }

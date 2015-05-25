@@ -1,4 +1,4 @@
-﻿namespace WrapperGenerator
+﻿namespace InterfaceImplementor
 {
     partial class MainForm
     {
