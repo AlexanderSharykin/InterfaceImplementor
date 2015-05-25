@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WrapperGenerator", "InterfaceImplementor\WrapperGenerator.csproj", "{7ADFF342-BCB4-4B3D-8DBB-711E5B17F91B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InterfaceImplementor", "InterfaceImplementor\InterfaceImplementor.csproj", "{7ADFF342-BCB4-4B3D-8DBB-711E5B17F91B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{D7CC3F0B-251C-4C58-BBFD-C7B16D9DD0C7}"
 EndProject
