@@ -80,6 +80,10 @@ namespace InterfaceImplementor
                        "[" + new string(',', t.GetArrayRank() - 1) + "]";
 
 
+            var nullable = Nullable.GetUnderlyingType(t);
+            if (nullable != null && nullable.IsPrimitive)
+                return new TypeCode(nullable).Generate(stdForm) + "?";
+
             string name;
             if (t.IsGenericType)
             {
