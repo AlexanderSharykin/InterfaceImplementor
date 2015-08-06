@@ -37,7 +37,7 @@ namespace Tests
         [TestCase]
         public void StringType()
         {
-            var tString = typeof(bool);
+            var tString = typeof(string);
             var tc = new TypeCode(tString);
             Assert.AreEqual(GetFriendlyTypeName(tString), tc.FullName);
         }
