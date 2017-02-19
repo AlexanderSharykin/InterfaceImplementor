@@ -38,7 +38,7 @@ namespace InterfaceImplementor
 
             // .ctor
             sb.AppendLine(String.Format("public {0}({1} target)", ClassName, tc.FullName));
-            sb.AppendLine(String.Format("{{ {0} = target; }}", TargetName));
+            sb.AppendLine(String.Format("{{{1} {0} = target; {1}}}", TargetName, Environment.NewLine));
             sb.AppendLine();
 
             var types = new List<Type>() { i };

@@ -1,4 +1,4 @@
-﻿namespace InterfaceImplementor
+﻿namespace WinformsClient
 {
     partial class MainForm
     {
@@ -137,6 +137,7 @@
             this.Controls.Add(this.lblFile);
             this.Controls.Add(this.butClose);
             this.Controls.Add(this.formContainer);
+            this.MinimumSize = new System.Drawing.Size(480, 320);
             this.Name = "MainForm";
             this.Text = "Interface Implementor";
             this.formContainer.Panel1.ResumeLayout(false);

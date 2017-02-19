@@ -35,6 +35,14 @@ namespace Tests
         }
 
         [TestCase]
+        public void StringType()
+        {
+            var tString = typeof(string);
+            var tc = new TypeCode(tString);
+            Assert.AreEqual(GetFriendlyTypeName(tString), tc.FullName);
+        }
+
+        [TestCase]
         public void PrimitiveType()
         {
             var tBool = typeof(bool);
@@ -85,9 +93,21 @@ namespace Tests
         [TestCase]
         public void NestedType()
         {
-            var tVoid = typeof(Abc.NestedAbc);
-            var tc = new TypeCode(tVoid);
-            Assert.AreEqual(GetFriendlyTypeName(tVoid), tc.FullName);
+            var tNested = typeof(Abc.NestedAbc);
+            var tc = new TypeCode(tNested);
+            Assert.AreEqual(GetFriendlyTypeName(tNested), tc.FullName);
+        }
+
+        [TestCase]
+        public void NullablesTypes()
+        {
+            var tNullable = typeof(int?);
+            var tc = new TypeCode(tNullable);
+            Assert.AreEqual("int?", tc.FullName);
+
+            tNullable = typeof(DateTime?);
+            tc = new TypeCode(tNullable);
+            Assert.AreEqual(GetFriendlyTypeName(tNullable), tc.FullName);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using InterfaceImplementor;
+using ViewModels;
 
-namespace InterfaceImplementor
+namespace WinformsClient
 {
     static class Program
     {
@@ -15,7 +15,13 @@ namespace InterfaceImplementor
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            Application.Run(new MainForm());
+            var dialogs = new VisualDialogContainer();
+
+            dialogs.Set<WinformsOpenFileDialog>("Assembly");
+            dialogs.Set<WinformsMessageBox>("ErrorMessage");
+
+            var f = new MainForm { DataContext = new AssemblyVm {  Dialogs = dialogs } };
+            Application.Run(f);
         }
     }
 }
